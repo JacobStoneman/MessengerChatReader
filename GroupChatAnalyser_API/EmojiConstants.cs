@@ -18,16 +18,6 @@ namespace GroupChatAnalyser_API
 			{ "OK", "\u00f0\u009f\u0091\u008c" },
 			{ "ANGRY", "\u00f0\u009f\u0098\u00a0" },
 			{ "SHOCK", "\u00f0\u009f\u0098\u00ae" }
-
-
-			//{"\u00f0\u009f\u0098\u0086", "Laugh" },
-			//{"\u00e2\u009d\u00a4", "Heart" },
-			//{ "\u00f0\u009f\u0091\u008d","Thumbs up" },
-			//{ "\u00f0\u009f\u0098\u00a2", "Crying" },
-			//{ "\u00f0\u009f\u00a6\u00b6", "Foot" },
-			//{ "\u00f0\u009f\u0091\u008c", "Ok" },
-			//{ "\u00f0\u009f\u0098\u00a0", "Angry" },
-			//{ "\u00f0\u009f\u0098\u00ae", "Shock" }
 		};
 	}
 }

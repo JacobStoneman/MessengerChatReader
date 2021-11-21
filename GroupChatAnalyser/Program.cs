@@ -42,6 +42,8 @@ namespace GroupChatAnalyser
 				{
 					Console.WriteLine("    - Total " + emoji.Key + " reactions received: " + emoji.Value);
 				}
+
+				Console.WriteLine("    - Total reactions sent: " + member.TotalReactionsSent);
 			}
 
 			Console.WriteLine();

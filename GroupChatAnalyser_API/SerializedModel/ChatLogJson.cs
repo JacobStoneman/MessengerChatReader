@@ -13,13 +13,9 @@ namespace GroupChatAnalyser_API
 
         public int TotalMessagesSent { get; set; }
         public int TotalMessagesUnsent { get; set; }
+        public int TotalReactionsSent { get; set; }
 
         public Dictionary<string, int> ReactionsReceived = new Dictionary<string, int>();
-
-
-        public int TotalReactionsRecieved { get; set; }
-        public int TotalLaughReactionsRecieved { get; set; }
-        
 
         public override string ToString() => name;
 	}
@@ -33,12 +29,6 @@ namespace GroupChatAnalyser_API
     {
         public string reaction { get; set; }
         public string actor { get; set; }
-
-        public string Emoji
-        {
-            //TODO: EmojiConstants.get(reaction); -- get formatted emoji name from list of defined constants
-            get => reaction;
-        }
     }
 
     public class Message
@@ -49,19 +39,6 @@ namespace GroupChatAnalyser_API
         public List<Reaction> reactions { get; set; }
         public bool is_unsent { get; set; }
         public string content { get; set; }
-
-        public int GetTotalReactionsByEmoji(string emoji)
-        {
-            int count = 0;
-            foreach (Reaction reacc in reactions)
-            {
-                if (reacc.reaction == emoji)
-                {
-                    count++;
-                }
-            }
-            return count;
-        }
     }
 
     public class ChatLog

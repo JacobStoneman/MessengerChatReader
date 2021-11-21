@@ -11,18 +11,17 @@ namespace GroupChatAnalyser_API
 {
 	public class Analyser
 	{
-		string _filePath;
+		private string _logDirectory;
 
-		string _logDirectory;
-		string[] _filePaths;
+		private string[] _filePaths;
 
-		string _chatName;
+		private string _chatName;
 		public string ChatName { get => _chatName; }
 
 		private ChatLog _chatLog;
 		public ChatLog ChatLog { get => _chatLog; }
 
-		List<ChatLog> _logs = new List<ChatLog>();
+		private List<ChatLog> _logs = new List<ChatLog>();
 
 		private DateTime _startDate;
 		public DateTime StartDate { get => _startDate; }
@@ -77,8 +76,7 @@ namespace GroupChatAnalyser_API
 			foreach (Participant member in ChatLog.participants)
 			{
 				member.TotalMessagesSent = GetTotalMessagesForMember(member.name);
-				member.TotalReactionsRecieved = GetTotalReactionsRecieved(member.name);
-				member.TotalLaughReactionsRecieved = GetTotalReactionsRecieved(member.name, EmojiConstants.Emojis["LAUGH"]);
+				GetTotalReactionsRecieved(member.name);
 				member.TotalMessagesUnsent = GetTotalUnsentMessages(member.name);
 			}
 		}
@@ -89,9 +87,8 @@ namespace GroupChatAnalyser_API
 
 		public int GetTotalMessagesContainingText(string text) => ChatLog.messages.Where(m => m.content != null && m.content.ToLower().Contains(text.ToLower())).Count();
 
-		public int GetTotalReactionsRecieved(string member)
+		public void GetTotalReactionsRecieved(string member)
 		{
-			int count = 0;
 			Participant participant = GetParticipantByName(member);
 
 			foreach (Message message in ChatLog.messages)
@@ -102,48 +99,25 @@ namespace GroupChatAnalyser_API
 					{
 						foreach (Reaction reacc in message.reactions)
 						{
-							string emojkey = EmojiConstants.Emojis.FirstOrDefault(x => x.Value == reacc.reaction).Key;
-							if (emojkey != null)
+							string emojiKey = EmojiConstants.Emojis.FirstOrDefault(x => x.Value == reacc.reaction).Key;
+							if (emojiKey != null)
 							{
-								if (participant.ReactionsReceived.ContainsKey(emojkey))
+								if (participant.ReactionsReceived.ContainsKey(emojiKey))
 								{
-									participant.ReactionsReceived[emojkey]++;
+									participant.ReactionsReceived[emojiKey]++;
 								}
 								else
 								{
-									participant.ReactionsReceived.Add(emojkey, 1);
+									participant.ReactionsReceived.Add(emojiKey, 1);
 								}
 							}
+
+							Participant actor = GetParticipantByName(reacc.actor);
+							if(actor != null) actor.TotalReactionsSent++;
 						}
 					}
 				}
 			}
-
-			return count;
-		}
-
-		public int GetTotalReactionsRecieved(string member, string emoji)
-		{
-			int count = 0;
-
-			foreach (Message message in ChatLog.messages)
-			{
-				if (message.sender_name == member)
-				{
-					if (message.reactions != null)
-					{
-						foreach(Reaction reacc in message.reactions)
-						{
-							if(reacc.reaction == emoji)
-							{
-								count++;
-							}
-						}
-					}
-				}
-			}
-
-			return count;
 		}
 
 		public int GetTotalUnsentMessages(string member) => ChatLog.messages.Where(m => m.sender_name == member && m.is_unsent).Count();
