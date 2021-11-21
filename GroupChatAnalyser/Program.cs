@@ -47,6 +47,8 @@ namespace GroupChatAnalyser
 			}
 
 			Console.WriteLine();
+
+			Console.WriteLine("Number of messages containing the phrase 'lmao' - " + ChatAnalyser.GetTotalMessagesContainingText("lmao"));
 		}
 	}
 }
