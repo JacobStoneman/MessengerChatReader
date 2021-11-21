@@ -78,7 +78,7 @@ namespace GroupChatAnalyser_API
 			{
 				member.TotalMessagesSent = GetTotalMessagesForMember(member.name);
 				member.TotalReactionsRecieved = GetTotalReactionsRecieved(member.name);
-				member.TotalLaughReactionsRecieved = GetTotalReactionsRecieved(member.name, EmojiConstants.LAUGH);
+				member.TotalLaughReactionsRecieved = GetTotalReactionsRecieved(member.name, EmojiConstants.Emojis["LAUGH"]);
 				member.TotalMessagesUnsent = GetTotalUnsentMessages(member.name);
 			}
 		}
@@ -92,14 +92,29 @@ namespace GroupChatAnalyser_API
 		public int GetTotalReactionsRecieved(string member)
 		{
 			int count = 0;
+			Participant participant = GetParticipantByName(member);
 
-			foreach(Message message in ChatLog.messages)
+			foreach (Message message in ChatLog.messages)
 			{
-				if(message.sender_name == member)
+				if (message.sender_name == member)
 				{
-					if(message.reactions != null)
+					if (message.reactions != null)
 					{
-						count += message.reactions.Count;
+						foreach (Reaction reacc in message.reactions)
+						{
+							string emojkey = EmojiConstants.Emojis.FirstOrDefault(x => x.Value == reacc.reaction).Key;
+							if (emojkey != null)
+							{
+								if (participant.ReactionsReceived.ContainsKey(emojkey))
+								{
+									participant.ReactionsReceived[emojkey]++;
+								}
+								else
+								{
+									participant.ReactionsReceived.Add(emojkey, 1);
+								}
+							}
+						}
 					}
 				}
 			}

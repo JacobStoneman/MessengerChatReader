@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GroupChatAnalyser_API;
 
 namespace GroupChatAnalyser
@@ -18,7 +19,7 @@ namespace GroupChatAnalyser
 
 		static void Init()
 		{
-			ChatAnalyser = new Analyser(@"");
+			ChatAnalyser = new Analyser(@"C:\Users\jacob\Documents\Files\GroupchatAnalyser\GroupChatAnalyser\MessengerChatReader\GroupChatAnalyser\chatlogs\");
 			
 			ChatAnalyser.Init();
 
@@ -31,9 +32,16 @@ namespace GroupChatAnalyser
 			{
 				Console.WriteLine(member + ":");
 				Console.WriteLine("    - Total messages sent: " + member.TotalMessagesSent);
-				Console.WriteLine("    - Total messages unsent: " + member.TotalMessagesUnsent);
-				Console.WriteLine("    - Total reactions received: " + member.TotalReactionsRecieved);
-				Console.WriteLine("    - Total laugh reactions received: " + member.TotalLaughReactionsRecieved);
+
+				if (member.TotalMessagesUnsent != 0)
+				{
+					Console.WriteLine("    - Total messages unsent: " + member.TotalMessagesUnsent);
+				}
+
+				foreach (KeyValuePair<string, int> emoji in member.ReactionsReceived)
+				{
+					Console.WriteLine("    - Total " + emoji.Key + " reactions received: " + emoji.Value);
+				}
 			}
 
 			Console.WriteLine();

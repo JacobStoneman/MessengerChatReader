@@ -8,40 +8,26 @@ namespace GroupChatAnalyser_API
 {
 	public static class EmojiConstants
 	{
-		public const string LAUGH = "\u00f0\u009f\u0098\u0086";
-		public const string HEART = "\u00e2\u009d\u00a4";
-		public const string THUMBS_UP = "\u00f0\u009f\u0091\u008d";
-		public const string CRYING = "\u00f0\u009f\u0098\u00a2";
-		public const string FOOT = "\u00f0\u009f\u00a6\u00b6";
-		public const string OK = "\u00f0\u009f\u0091\u008c";
-		public const string ANGRY = "\u00f0\u009f\u0098\u00a0";
-		public const string SHOCK = "\u00f0\u009f\u0098\u00ae";
-
-		//TODO: Replace this with a dictionary
-		public static string GetEmoji(string emoji)
+		public static readonly Dictionary<string, string> Emojis = new Dictionary<string, string>()
 		{
-			switch (emoji)
-			{
-				case LAUGH:
-					return "Laugh";
-				case HEART:
-					return "Heart";
-				case THUMBS_UP:
-					return "Thumbs up";
-				case CRYING:
-					return "Crying";
-				case FOOT:
-					return "Foot";
-				case OK:
-					return "Ok";
-				case ANGRY:
-					return "Angry";
-				case SHOCK:
-					return "Shock";
-				default:
-					return "Emoji not found - check https://apps.timwhitlock.info/emoji/tables/unicode";
-			}
-		}
+			{ "LAUGH", "\u00f0\u009f\u0098\u0086" },
+			{ "HEART", "\u00e2\u009d\u00a4" },
+			{ "THUMBS_UP", "\u00f0\u009f\u0091\u008d" },
+			{ "CRYING", "\u00f0\u009f\u0098\u00a2" },
+			{ "FOOT", "\u00f0\u009f\u00a6\u00b6" },
+			{ "OK", "\u00f0\u009f\u0091\u008c" },
+			{ "ANGRY", "\u00f0\u009f\u0098\u00a0" },
+			{ "SHOCK", "\u00f0\u009f\u0098\u00ae" }
 
+
+			//{"\u00f0\u009f\u0098\u0086", "Laugh" },
+			//{"\u00e2\u009d\u00a4", "Heart" },
+			//{ "\u00f0\u009f\u0091\u008d","Thumbs up" },
+			//{ "\u00f0\u009f\u0098\u00a2", "Crying" },
+			//{ "\u00f0\u009f\u00a6\u00b6", "Foot" },
+			//{ "\u00f0\u009f\u0091\u008c", "Ok" },
+			//{ "\u00f0\u009f\u0098\u00a0", "Angry" },
+			//{ "\u00f0\u009f\u0098\u00ae", "Shock" }
+		};
 	}
 }

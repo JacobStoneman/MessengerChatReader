@@ -14,7 +14,9 @@ namespace GroupChatAnalyser_API
         public int TotalMessagesSent { get; set; }
         public int TotalMessagesUnsent { get; set; }
 
-        //TODO: Replace with a dictionary using emoji consts
+        public Dictionary<string, int> ReactionsReceived = new Dictionary<string, int>();
+
+
         public int TotalReactionsRecieved { get; set; }
         public int TotalLaughReactionsRecieved { get; set; }
         

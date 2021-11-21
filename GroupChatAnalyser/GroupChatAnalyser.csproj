@@ -6,11 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GroupChatAnalyser_API\GroupChatAnalyser_API.csproj" />
+    <Compile Remove="Logs\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <None Remove="Logs\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Logs\" />
+    <ProjectReference Include="..\GroupChatAnalyser_API\GroupChatAnalyser_API.csproj" />
   </ItemGroup>
 
 </Project>
