@@ -124,6 +124,7 @@
     <Compile Include="ChatLogJson.cs" />
     <Compile Include="DateConverter.cs" />
     <Compile Include="EmojiConstants.cs" />
+    <Compile Include="PieChartEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\GroupChatAnalyser_Utils.rd.xml" />
   </ItemGroup>

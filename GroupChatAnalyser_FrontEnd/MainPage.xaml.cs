@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Navigation;
 
 using GroupChatAnalyser_Utils;
 using Windows.Storage;
+using WinRTXamlToolkit.Controls.DataVisualization.Charting;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -24,15 +26,12 @@ namespace GroupChatAnalyser_FrontEnd
     public sealed partial class MainPage : Page
     {
         StorageFolder logDir;
-        StorageFolder installedLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
 
         Analyser ChatAnalyser;
 
         public MainPage()
         {
-            this.InitializeComponent();
-
-            //Init();
+            InitializeComponent();
         }
 
 		async void Init()
@@ -47,6 +46,8 @@ namespace GroupChatAnalyser_FrontEnd
                 newItem.Content = member.name;
                 listBox_members.Items.Add(newItem);
             }
+
+            GenerateChart();
         }
 
 		private async void btn_generate_Click(object sender, RoutedEventArgs e)
@@ -67,9 +68,26 @@ namespace GroupChatAnalyser_FrontEnd
 
 		private void listView_members_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-            ListBox box = ((ListBox)sender);
-            ListBoxItem selected = (ListBoxItem)box.SelectedItem;
-            txt_totalMessages.Text = ChatAnalyser.GetParticipantByName(selected.Content.ToString()).TotalMessagesSent.ToString();
+            string selectedOption = ((ListBoxItem)((ListBox)sender).SelectedItem).Content.ToString();
+
+            DisplayInfo(ChatAnalyser.GetParticipantByName(selectedOption));
 		}
+
+        private void DisplayInfo(Participant member)
+		{
+            txt_totalMessages.Text = "Total messages sent: " + member.TotalMessagesSent.ToString();
+        }
+
+        private void GenerateChart()
+		{
+            List<PieChartEntry> data = new List<PieChartEntry>();
+
+            foreach(Participant member in ChatAnalyser.ChatLog.participants)
+			{
+                data.Add(new PieChartEntry(member.name, member.TotalMessagesSent));
+			}
+
+            (PieChart.Series[0] as PieSeries).ItemsSource = data;
+        }
 	}
 }

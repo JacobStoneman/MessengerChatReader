@@ -12,10 +12,6 @@ namespace GroupChatAnalyser_Utils
 {
 	public class Analyser
 	{
-		private string _logDirectory;
-
-		private string[] _filePaths;
-
 		private StorageFolder _logsDir;
 
 		private string _chatName;
