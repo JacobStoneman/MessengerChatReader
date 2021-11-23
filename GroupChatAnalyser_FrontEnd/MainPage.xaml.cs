@@ -39,6 +39,8 @@ namespace GroupChatAnalyser_FrontEnd
 			await ChatAnalyser.Init();
 
             txt_title.Text = ChatAnalyser.ChatName;
+            txt_totalMessages.Text = ChatAnalyser.ChatLog.messages.Count.ToString() + " Total Messages";
+            txt_dates.Text = "Between " + ChatAnalyser.StartDate + " And " + ChatAnalyser.EndDate;
 
             foreach(Participant member in ChatAnalyser.ChatLog.participants)
 			{
@@ -75,7 +77,7 @@ namespace GroupChatAnalyser_FrontEnd
 
         private void DisplayInfo(Participant member)
 		{
-            txt_totalMessages.Text = "Total messages sent: " + member.TotalMessagesSent.ToString();
+            txt_totalMessages_participants.Text = "Total messages sent: " + member.TotalMessagesSent.ToString();
         }
 
         private void GenerateChart()
